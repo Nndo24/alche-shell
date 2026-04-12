@@ -1,2 +1,4 @@
 #!/bin/bash
 sed -n "p;n"
+awk 'NR % 2 == 1'
+
