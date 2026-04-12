@@ -1,2 +1,6 @@
 #!/bin/bash
-sed -n -e p -e n
+while read -r line
+do
+    echo "$line"
+    read -r
+done
