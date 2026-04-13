@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# This script manages a PID file and responds to SIGTERM, SIGINT, and SIGQUIT
+
+PID_FILE="/var/run/myscript.pid"
+
+# Cleanup function to remove the PID file and exit the script
+cleanup() {
+    rm -f "$PID_FILE"
+    exit
+}
+
+# Store the current process ID (3492) into the specified file
+echo "$$" > "$PID_FILE"
+
+# Trap SIGTERM: Display message, then run cleanup to delete file and exit
+trap 'echo "I hate the kill command"; cleanup' SIGTERM
+
+# Trap SIGINT: Display message but do not exit (per example behavior)
+trap 'echo "Y U no love me?!"' SIGINT
+
+# Trap SIGQUIT: Run cleanup and exit
+trap 'cleanup' SIGQUIT
+
+while true
+do
+    echo "To infinity and beyond"
+    sleep 2
+done
